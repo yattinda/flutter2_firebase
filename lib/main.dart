@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:google_sign_in/google_sign_in.dart';
+import 'login.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   // 最初に表示するWidget
   runApp(ChatApp());
 }
@@ -20,13 +20,13 @@ class ChatApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       // ログイン画面を表示
-      home: LoginPage(),
+      home: HomePage(),
     );
   }
 }
 
 // ログイン画面用Widget
-class LoginPage extends StatelessWidget {
+class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,14 +36,13 @@ class LoginPage extends StatelessWidget {
           children: <Widget>[
             ElevatedButton(
               child: Text('ログイン'),
-              onPressed: () async {
-                // チャット画面に遷移＋ログイン画面を破棄
-                await Navigator.of(context).pushReplacement(
-                  MaterialPageRoute(builder: (context) {
-                    return ChatPage();
-                  }),
-                );
-              },
+                onPressed: () async {
+                  await Navigator.of(context).push(
+                    MaterialPageRoute(builder: (context) {
+                      return LoginPage();
+                    }),
+                  );
+                }
             )
           ],
         ),
@@ -63,13 +62,12 @@ class ChatPage extends StatelessWidget {
           IconButton(
             icon: Icon(Icons.close),
             onPressed: () async {
-              // ログイン画面に遷移＋チャット画面を破棄
-              await Navigator.of(context).pushReplacement(
+              await Navigator.of(context).push(
                 MaterialPageRoute(builder: (context) {
                   return LoginPage();
                 }),
               );
-            },
+            }
           ),
         ],
       ),

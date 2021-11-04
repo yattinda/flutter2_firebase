@@ -30,20 +30,22 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text('ナリタブライアン'),
+      ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             ElevatedButton(
-              child: Text('ログイン'),
+                child: Text('ログイン'),
                 onPressed: () async {
                   await Navigator.of(context).push(
                     MaterialPageRoute(builder: (context) {
                       return LoginPage();
                     }),
                   );
-                }
-            )
+                })
           ],
         ),
       ),
@@ -60,15 +62,14 @@ class ChatPage extends StatelessWidget {
         title: Text('チャット'),
         actions: <Widget>[
           IconButton(
-            icon: Icon(Icons.close),
-            onPressed: () async {
-              await Navigator.of(context).push(
-                MaterialPageRoute(builder: (context) {
-                  return LoginPage();
-                }),
-              );
-            }
-          ),
+              icon: Icon(Icons.close),
+              onPressed: () async {
+                await Navigator.of(context).push(
+                  MaterialPageRoute(builder: (context) {
+                    return LoginPage();
+                  }),
+                );
+              }),
         ],
       ),
       floatingActionButton: FloatingActionButton(

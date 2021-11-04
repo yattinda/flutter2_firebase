@@ -6,7 +6,7 @@ import 'main.dart';
 
 class LoginPage extends StatelessWidget {
   // Google 認証
-  final _google_signin  = GoogleSignIn(scopes: [
+  final _google_signin = GoogleSignIn(scopes: [
     'email',
     'https://www.googleapis.com/auth/contacts.readonly',
   ]);
@@ -18,28 +18,31 @@ class LoginPage extends StatelessWidget {
   final _auth = FirebaseAuth.instance;
   UserCredential result;
   User user;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text('ログイン'),
+      ),
       body: Center(
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
-
             ButtonTheme(
               minWidth: 350.0,
               // height: 100.0,
               child: RaisedButton(
-                  child: Text('Google認証',
-                    style: TextStyle(fontWeight: FontWeight.bold),),
+                  child: Text(
+                    'Google認証',
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
                   textColor: Colors.white,
                   color: Colors.grey,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10),
                   ),
-
                   onPressed: () async {
-
                     // Google認証の部分
                     googleUser = await _google_signin.signIn();
                     googleAuth = await googleUser.authentication;
@@ -59,37 +62,35 @@ class LoginPage extends StatelessWidget {
                           return ChatPage();
                         }),
                       );
-
                     } catch (e) {
                       print(e);
                     }
-                  }
-              ),
+                  }),
             ),
-
             ButtonTheme(
               minWidth: 350.0,
               // height: 100.0,
               child: RaisedButton(
-                  child: Text('Google認証ログアウト',
-                    style: TextStyle(fontWeight: FontWeight.bold),),
+                  child: Text(
+                    'Google認証ログアウト',
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
                   textColor: Colors.white,
                   color: Colors.grey,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10),
                   ),
                   onPressed: () async {
+                    _auth.signOut();
+                    _google_signin.signOut();
                     await Navigator.of(context).push(
                       MaterialPageRoute(builder: (context) {
                         return HomePage();
                       }),
                     );
-                  }
-              ),
+                  }),
             ),
-
             Text('別のGoogleアカウントでログインしたい場合、一回ログアウトする必要がある。'),
-
           ],
         ),
       ),

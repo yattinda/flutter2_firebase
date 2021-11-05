@@ -32,15 +32,15 @@ class LoginPage extends StatelessWidget {
             ButtonTheme(
               minWidth: 350.0,
               // height: 100.0,
-              child: RaisedButton(
-                  child: Text(
-                    'Google認証',
-                    style: TextStyle(fontWeight: FontWeight.bold),
+              child:ElevatedButton.icon(
+                  icon: const Icon(
+                    Icons.login,
+                    color: Colors.white,
                   ),
-                  textColor: Colors.white,
-                  color: Colors.grey,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
+                  label: const Text('googleログイン'),
+                  style: ElevatedButton.styleFrom(
+                    primary: Colors.green,
+                    onPrimary: Colors.white,
                   ),
                   onPressed: () async {
                     // Google認証の部分
@@ -70,15 +70,15 @@ class LoginPage extends StatelessWidget {
             ButtonTheme(
               minWidth: 350.0,
               // height: 100.0,
-              child: RaisedButton(
-                  child: Text(
-                    'Google認証ログアウト',
-                    style: TextStyle(fontWeight: FontWeight.bold),
+              child: ElevatedButton.icon(
+                  icon: const Icon(
+                    Icons.logout,
+                    color: Colors.white,
                   ),
-                  textColor: Colors.white,
-                  color: Colors.grey,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
+                  label: const Text('Googleログアウト'),
+                  style: ElevatedButton.styleFrom(
+                    primary: Colors.red,
+                    onPrimary: Colors.white,
                   ),
                   onPressed: () async {
                     _auth.signOut();
@@ -90,7 +90,6 @@ class LoginPage extends StatelessWidget {
                     );
                   }),
             ),
-            Text('別のGoogleアカウントでログインしたい場合、一回ログアウトする必要がある。'),
           ],
         ),
       ),

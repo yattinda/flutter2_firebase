@@ -38,7 +38,7 @@ class HomePage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             ElevatedButton(
-                child: Text('ログイン'),
+                child: Text('ログイン画面へ'),
                 onPressed: () async {
                   await Navigator.of(context).push(
                     MaterialPageRoute(builder: (context) {

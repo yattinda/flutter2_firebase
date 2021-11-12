@@ -52,6 +52,18 @@ class ChatPage extends StatelessWidget {
                         child: ListTile(
                           title: Text(document['text']),
                           subtitle: Text(document['email']),
+                          trailing: document['email'] == user.email
+                              ? IconButton(
+                            icon: Icon(Icons.delete),
+                            onPressed: () async {
+                              // 投稿メッセージのドキュメントを削除
+                              await FirebaseFirestore.instance
+                                  .collection('posts')
+                                  .doc(document.id)
+                                  .delete();
+                            },
+                          )
+                              : null,
                         ),
                       );
                     }).toList(),
@@ -69,7 +81,7 @@ class ChatPage extends StatelessWidget {
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
         onPressed: () async {
-// 投稿画面に遷移
+          // 投稿画面に遷移
           await Navigator.of(context).push(
             MaterialPageRoute(builder: (context) {
               return AddPostPage(user);

@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 import 'main.dart';
+import 'chat.dart';
 
 class LoginPage extends StatelessWidget {
   // Google 認証

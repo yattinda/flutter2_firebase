@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'login.dart';
+import 'addpost.dart';
 
 class ChatPage extends StatelessWidget {
   ChatPage(this.user);
@@ -68,7 +69,12 @@ class ChatPage extends StatelessWidget {
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
         onPressed: () async {
-          /* --- 省略 --- */
+// 投稿画面に遷移
+          await Navigator.of(context).push(
+            MaterialPageRoute(builder: (context) {
+              return AddPostPage(user);
+            }),
+          );
         },
       ),
     );

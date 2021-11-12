@@ -60,7 +60,7 @@ class LoginPage extends StatelessWidget {
 
                       Navigator.of(context).pushReplacement(
                         MaterialPageRoute(builder: (context) {
-                          return ChatPage();
+                          return ChatPage(user);
                         }),
                       );
                     } catch (e) {

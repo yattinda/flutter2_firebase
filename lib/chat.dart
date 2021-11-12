@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
-import 'main.dart';
+
 import 'login.dart';
+import 'addpost.dart';
+
 class ChatPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {

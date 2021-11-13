@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:provider/provider.dart';
 
 import 'login.dart';
 
@@ -11,17 +12,22 @@ void main() async {
 }
 
 class ChatApp extends StatelessWidget {
+  // ユーザーの情報を管理するデータ
+  final UserState userState = UserState();
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      // アプリ名
-      title: 'ChatApp',
-      theme: ThemeData(
-        // テーマカラー
-        primarySwatch: Colors.blue,
+    return ChangeNotifierProvider<UserState>(
+      create: (context) => UserState(),
+      child: MaterialApp(   // アプリ名
+        title: 'ChatApp',
+        theme: ThemeData(
+          // テーマカラー
+          primarySwatch: Colors.blue,
+        ),
+        // ログイン画面を表示
+        home: HomePage(),
       ),
-      // ログイン画面を表示
-      home: HomePage(),
     );
   }
 }

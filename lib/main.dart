@@ -1,13 +1,36 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'login.dart';
+
+final userProvider = StateProvider((ref) {
+  return FirebaseAuth.instance.currentUser;
+});
+
+final messageTextProvider = StateProvider.autoDispose((ref) {
+  return '';
+});
+
+final postsQueryProvider = StreamProvider.autoDispose((ref) {
+  return FirebaseFirestore.instance
+      .collection('posts')
+      .orderBy('date')
+      .snapshots();
+});
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  // 最初に表示するWidget
-  runApp(ChatApp());
+
+  runApp(
+    // Riverpodでデータを受け渡しできる状態にする
+    ProviderScope(
+      child: ChatApp(),
+    ),
+  );
 }
 
 class ChatApp extends StatelessWidget {

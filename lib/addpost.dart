@@ -1,23 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class AddPostPage extends StatefulWidget {
-  // 引数からユーザー情報を受け取る
-  AddPostPage(this.user);
-  // ユーザー情報
-  final User user;
+import 'main.dart';
 
+class AddPostPage extends ConsumerWidget {
   @override
-  _AddPostPageState createState() => _AddPostPageState();
-}
-
-class _AddPostPageState extends State<AddPostPage> {
-  // 入力した投稿メッセージ
-  String messageText = '';
-
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, ScopedReader watch) {
+    // Providerから値を受け取る
+    final user = watch(userProvider).state;
+    final messageText = watch(messageTextProvider).state;
     return Scaffold(
       appBar: AppBar(
         title: Text('チャット投稿'),
@@ -36,9 +28,8 @@ class _AddPostPageState extends State<AddPostPage> {
                 // 最大3行
                 maxLines: 3,
                 onChanged: (String value) {
-                  setState(() {
-                    messageText = value;
-                  });
+                  // Providerから値を更新
+                  context.read(messageTextProvider).state = value;
                 },
               ),
               const SizedBox(height: 8),
@@ -49,7 +40,7 @@ class _AddPostPageState extends State<AddPostPage> {
                   onPressed: () async {
                     final date =
                     DateTime.now().toLocal().toIso8601String(); // 現在の日時
-                    final email = widget.user.email; // AddPostPage のデータを参照
+                    final email = user.email; // AddPostPage のデータを参照
                     // 投稿メッセージ用ドキュメント作成
                     await FirebaseFirestore.instance
                         .collection('posts') // コレクションID指定

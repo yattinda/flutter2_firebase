@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'main.dart';
 import 'chat.dart';
 
-class LoginPage extends StatelessWidget {
+class LoginPage extends ConsumerWidget {
   // Google 認証
   final _google_signin = GoogleSignIn(scopes: [
     'email',
@@ -21,7 +22,7 @@ class LoginPage extends StatelessWidget {
   User user;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, ScopedReader watch) {
     return Scaffold(
       appBar: AppBar(
         title: Text('ログイン'),
@@ -56,11 +57,11 @@ class LoginPage extends StatelessWidget {
                     // Google認証を通過した後、Firebase側にログイン　※emailが存在しなければ登録
                     try {
                       result = await _auth.signInWithCredential(credential);
-                      user = result.user;
+                      context.read(userProvider).state = result.user;
 
                       Navigator.of(context).pushReplacement(
                         MaterialPageRoute(builder: (context) {
-                          return ChatPage(user);
+                          return ChatPage();
                         }),
                       );
                     } catch (e) {

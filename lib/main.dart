@@ -39,10 +39,8 @@ class ChatApp extends StatelessWidget {
     return MaterialApp(
       // アプリ名
       title: 'ChatApp',
-      theme: ThemeData(
-        // テーマカラー
-        primarySwatch: Colors.blue,
-      ),
+      theme: ThemeData.light(),
+      darkTheme: ThemeData.dark(),
       // ログイン画面を表示
       home: HomePage(),
     );

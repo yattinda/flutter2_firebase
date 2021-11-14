@@ -8,7 +8,7 @@ import 'chat.dart';
 
 class LoginPage extends ConsumerWidget {
   // Google 認証
-  final _google_signin = GoogleSignIn(scopes: [
+  final googleSignin = GoogleSignIn(scopes: [
     'email',
     'https://www.googleapis.com/auth/contacts.readonly',
   ]);
@@ -46,7 +46,7 @@ class LoginPage extends ConsumerWidget {
                   ),
                   onPressed: () async {
                     // Google認証の部分
-                    googleUser = await _google_signin.signIn();
+                    googleUser = await googleSignin.signIn();
                     googleAuth = await googleUser.authentication;
 
                     credential = GoogleAuthProvider.credential(
@@ -84,7 +84,7 @@ class LoginPage extends ConsumerWidget {
                   ),
                   onPressed: () async {
                     _auth.signOut();
-                    _google_signin.signOut();
+                    googleSignin.signOut();
                     await Navigator.of(context).push(
                       MaterialPageRoute(builder: (context) {
                         return HomePage();
